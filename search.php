@@ -46,14 +46,14 @@ tr:nth-child(even) {
 		<p>
           <LABEL class="lab">Blood Group</LABEL>
           <SELECT name="BLOODGROUP">
-            <OPTION selected>A+</OPTION>
-            <OPTION>A-</OPTION>
-            <OPTION>B+</OPTION>
-            <OPTION>B-</OPTION>
-            <OPTION>AB+</OPTION>
-            <OPTION>AB-</OPTION>
-            <OPTION>O+</OPTION>
-            <OPTION>O-</OPTION>
+            <OPTION selected value="A+">A+</OPTION>
+            <OPTION value="A-">A-</OPTION>
+            <OPTION value="B+">B+</OPTION>
+            <OPTION value="B-">B-</OPTION>
+            <OPTION value="AB+">AB+</OPTION>
+            <OPTION value="AB-">AB-</OPTION>
+            <OPTION value="O+">O+</OPTION>
+            <OPTION value="O-">O-</OPTION>
           </SELECT>
         </p>
 		<h3>In Location </h3>
