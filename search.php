@@ -1,3 +1,4 @@
+
 <html>
   <head>
     <title>
@@ -10,8 +11,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
+  <style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
   <body>
-    
     <div class="sidebar">
     <a href="home.php"><i class="fa fa-fw fa-home" style="font-size:48px"></i> HOME</a>
     <a href="search.php"><i class="fa fa-fw fa-search" style="font-size:48px"></i> SEARCH</a>
@@ -25,14 +42,14 @@
 	<div class="container sear">
 		<h2>Search for </h2>
 		<hr>
-		<form>
+		<form action="search.php" method="post">
 		<p>
           <LABEL class="lab">Blood Group</LABEL>
-          <SELECT>
-            <OPTION>A+</OPTION>
+          <SELECT name="BLOODGROUP">
+            <OPTION selected>A+</OPTION>
             <OPTION>A-</OPTION>
             <OPTION>B+</OPTION>
-            <OPTION>B--</OPTION>
+            <OPTION>B-</OPTION>
             <OPTION>AB+</OPTION>
             <OPTION>AB-</OPTION>
             <OPTION>O+</OPTION>
@@ -41,50 +58,78 @@
         </p>
 		<h3>In Location </h3>
 		<hr>
-		<select name=slist>
-			<option selected disabled value="">------------Select State------------</option>
-			<option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-			<option value="Andhra Pradesh">Andhra Pradesh</option>
-			<option value="Arunachal Pradesh">Arunachal Pradesh</option>
-			<option value="Assam">Assam</option>
-			<option value="Bihar">Bihar</option>
-			<option value="Chandigarh">Chandigarh</option>
-			<option value="Chhattisgarh">Chhattisgarh</option>
-			<option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
-			<option value="Daman and Diu">Daman and Diu</option>
-			<option value="Delhi">Delhi</option>
-			<option value="Goa">Goa</option>
-			<option value="Gujarat">Gujarat</option>
-			<option value="Haryana">Haryana</option>
-			<option value="Himachal Pradesh">Himachal Pradesh</option>
-			<option value="Jammu and Kashmir">Jammu and Kashmir</option>
-			<option value="Jharkhand">Jharkhand</option>
-			<option value="Karnataka">Karnataka</option>
-			<option value="Kerala">Kerala</option>
-			<option value="Lakshadweep">Lakshadweep</option>
-			<option value="Madhya Pradesh">Madhya Pradesh</option>
-			<option value="Maharashtra">Maharashtra</option>
-			<option value="Manipur">Manipur</option>
-			<option value="Meghalaya">Meghalaya</option>
-			<option value="Mizoram">Mizoram</option>
-			<option value="Nagaland">Nagaland</option>
-			<option value="Orissa">Orissa</option>
-			<option value="Pondicherry">Pondicherry</option>
-			<option value="Punjab">Punjab</option>
-			<option value="Rajasthan">Rajasthan</option>
-			<option value="Sikkim">Sikkim</option>
-			<option value="Tamil Nadu">Tamil Nadu</option>
-			<option value="Tripura">Tripura</option>
-			<option value="Uttaranchal">Uttaranchal</option>
-			<option value="Uttar Pradesh">Uttar Pradesh</option>
-			<option value="West Bengal">West Bengal</option>
-		</select>
-		<input type="Submit">
+    <P>
+      <LABEL class="lab">Country</LABEL>
+      <select name="country" class="countries" id="countryId" REQUIRED>
+        <option selected disabled >Select Country</option>
+      </select>
+    </P>
+		<p>
+      <LABEL class="lab">State</LABEL>
+      <select name="state" class="states" id="stateId" REQUIRED>
+        <option selected disabled>Select State</option>
+      </select>
+    </p>
+    <p>
+      <LABEL class="lab">City</LABEL>
+      <select name="city" class="cities" id="cityId" REQUIRED>
+      <option selected disabled >Select City</option>
+    </select>
+  </p>
+		<input type="Submit" name="submit">
 		</form>
 	</div>
 	<div class=" container seares">
 		<h4>Search Results</h4>
 		<hr>
+    <?php
+      $servername = "localhost";
+      $username = "username";
+      $password = "";
+      $dbname = "bloodbank";
+      // Create connection
+      $conn = new mysqli($servername, $username, $password, $dbname);
+      // Check connection
+      if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+        }
+        if (isset($_POST['submit'])){
+          $bd=$_POST['BLOODGROUP'];
+          $coun=$_POST['country'];
+          $statee=$_POST['state'];
+          $cty=$_POST['city'];
+          $sql = "SELECT * FROM user WHERE REGTYPE='DONOR' and BLOODGROUP='".$bd."'and COUNTRY='".$coun."'and STATE='".$statee."'and CITY='".$cty."'";
+         if($res = mysqli_query($conn, $sql)){
+             if(mysqli_num_rows($res) > 0){
+                 echo "<table border='1'>";
+                     echo "<tr>";
+                         echo "<th>Firstname</th>";
+                         echo "<th>Lastname</th>";
+                         echo "<th>Email</th>";
+                         echo "<th>Mobile No</th>";
+                         echo "<th>Alternate No</th>";
+                     echo "</tr>";
+                 while($row = mysqli_fetch_array($res)){
+                     echo "<tr>";
+                         echo "<td>" . $row['FNAME'] . "</td>";
+                         echo "<td>" . $row['LNAME'] . "</td>";
+                         echo "<td>" . $row['EMAIL'] . "</td>";
+                         echo "<td>" . $row['MNO'] . "</td>";
+                         echo "<td>" . $row['ALNO'] . "</td>";
+                     echo "</tr>";
+                 }
+                 echo "</table>";
+                 mysqli_free_result($res);
+             } else{
+                 echo "No Matching records are found.";
+             }
+         } else{
+             echo "ERROR: Could not able to execute $sql. "
+                                         . mysqli_error($link);
+         }
+         $conn->close();
+       }
+          ?>
 	</div>
 	<div id="fixbot" class="container-fluid">
       <h2 id="ContactUs">REACH US:</h2>
@@ -94,6 +139,7 @@
       Phone : 9123456789 <br>
       Email: bloodbank@somaiya.edu
     </div>
-
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
   </body>
 </html>
