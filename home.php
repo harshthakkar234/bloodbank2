@@ -10,12 +10,57 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
+     <style media="screen">
+     body {
+  font-family: 'Andika';
+}
+  .chead{
+  font-size: 26px;
+}
+  .shead{
+    font-size: 22px;
+  }
+  .contents{
+    font-size: 18px;
+  }
+     </style>
   </head>
   <body>
     <!-- HOME BAR -->
     <div class="topnav topbar" id="myTopnav">
       <a href="home.php"><b id="tp2"><img id="logo" src="somaiyalogo.png" alt="somaiya trust" height="50px" > SOMAIYA </b><b id="tp">BLOOD</b><b id="tp2">BANK</b></a>
-      <a href="login.php" class="topright navlinkh" id="nava">Login</a>
+      <?php
+      session_start();
+        if(!isset($_SESSION['login_user']))
+        {
+          echo '<a href="login.php" class="topright navlinkh" id="nava">Login</a>';
+        }
+        else
+          {
+            echo '<a href="logout.php" class="topright navlinkh" id="nava">Logout</a>';
+          }
+          $servername = "localhost";
+          $username = "username";
+          $password = "";
+          $dbname = "bloodbank";
+
+          // Create connection
+          $conn = new mysqli($servername, $username, $password, $dbname);
+          // Check connection
+          if ($conn->connect_error) {
+              die("Connection failed: " . $conn->connect_error);
+          }
+          $sql = "CREATE TABLE IF NOT EXISTS user(REGTYPE VARCHAR(20),FNAME VARCHAR(20),LNAME VARCHAR(20),EMAIL VARCHAR(20) PRIMARY KEY,PASSWORD VARCHAR(70),AGE INT,BLOODGROUP VARCHAR(20),SEX VARCHAR(20),MNO INT,ALNO INT,STATE VARCHAR(20),CITY VARCHAR(20),LMARK VARCHAR(20),COUNTRY VARCHAR(20))";
+          if ($conn->query($sql) === FALSE) {
+              echo "Error: " . $sql . "<br>" . $conn->error;
+          }
+          $sql2 = "CREATE TABLE IF NOT EXISTS contactus(NAME VARCHAR(20),EMAIL VARCHAR(20), MNO INT, MESSAGE VARCHAR(50))";
+          if ($conn->query($sql2) === FALSE) {
+              echo "Error: " . $sql . "<br>" . $conn->error;
+          }
+        ?>
+      <!-- <a href="login.php" class="topright navlinkh" id="nava">Login</a> -->
     </div>
     <!-- sidebar -->
     <div class="sidebar">
@@ -62,40 +107,40 @@
       “There is no great joy than saving a soul.”
     </div>
 
-    <div class="container-fluid">
-      <h2>WHY DONATE BLOOD?</h2>
+    <div class="container content">
+      <p class="chead">WHY DONATE BLOOD?</p>
       <p> &emsp; Blood Donation is service to Humankind,By Donating Blood you help a needy and save a precious life.Transfusion of blood every year saves Millions of life all over the world every year.There are Millions of Blood Donors all over the world, but still their are number of countries who don’t have adequate number of blood suppliers and face the challenge of blood supply to the patients in the country.</p>
       <img src="why.jpeg" alt="donate blood" height="50%" width="100%" id="height="50%" width="100%"" >
       <p>&emsp; Each year, thousands of people rely on receiving donated blood and blood products to stay alive.<br>
         &emsp;Certain injuries and illnesses can quickly cause a person's blood levels to drop. Without enough blood, they will not receive enough oxygen in their body, resulting in death.<br>
         &emsp;Many hospitals and medical centers utilize donated blood to save the lives of their patients.</p>
     </div>
-    <div class="container">
+    <div class="container content">
       <hr>
-      <h2 id="Events">Events</h2>
+      <p id="Events" class="chead">Events</p>
       <hr>
-      <h5>Vidyavihar Blood Camp</h5
+      <p class="shead">Vidyavihar Blood Camp</p>
       <p> A camp setup in the Somaiya Vidyavihar Campus For students and Faculty to donate bood.</p>
-      <h5>Ayurvihar Blood Camp</h5>
+      <p class="shead">Ayurvihar Blood Camp</p>
       <p> A camp setup in the Somaiya Ayurvihar Campus For students and Faculty to donate bood.</p>
     </div>
-    <div class="container">
+    <div class="container content">
       <hr>
-      <h2 id="FAQ">Frequently Asked Questions</h2>
+      <p class="chead" id="FAQ">Frequently Asked Questions</p>
       <hr>
-      <h5>Who can donate?</h5>
+      <p class="shead">Who can donate?</p>
       <p>Donors must weigh at least 110 pounds and be at least 17 years old. In Minnesota, 16-years-olds may donate with written consent from a parent or guardian. During your donation appointment, you will complete a brief health questionnaire to make sure blood donation is safe for you and the recipient of your blood.</p>
-      <h5>How long does donation take?</h5>
+      <p class="shead">How long does donation take?</p>
       <p>Whole blood donation takes approximately 45 to 60 minutes.<br>
       Donating plasma or platelets (called apheresis or automated donation) takes about 1 1/2 to two hours. The Mayo Clinic Blood Donor Center in Rochester provides televisions, video on demand and wireless Internet access for donors to use during donations.</p>
-      <h5>How often may I donate?</h5>
+      <p class="shead">How often may I donate?</p>
       <p>You can donate whole blood as often as every 84 days at the Mayo Clinic Blood Donor Center in Rochester.<br>
         Plasma donors may donate as often as every 28 days.<br>
         Platelet donors may donate as frequently as every eight days, and up to 24 times in a 12-month period.<br>
         Double red cell donors may donate as often as every 168 days.</p>
     </div>
-    <div id="fixbot" class="container-fluid">
-      <h2 id="ContactUs">REACH US:</h2>
+    <div id="fixbot" class="container-fluid content">
+      <p class="shead "id="ContactUs">REACH US:</p>
       <hr color="#f2f2f2">
       Address: Somaiya Ayurvihar ,Sion (W) , Mumbai - 400022.<br>
       Contact <br>

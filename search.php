@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
   </head>
   <style>
   table {
@@ -27,17 +28,43 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+
+body {
+font-family: 'Andika';
+}
+.chead{
+font-size: 26px;
+}
+.shead{
+font-size: 22px;
+}
+.contents{
+font-size: 18px;
+}
 </style>
   <body>
-    <div class="sidebar">
-    <a href="home.php"><i class="fa fa-fw fa-home" style="font-size:48px"></i> HOME</a>
-    <a href="search.php"><i class="fa fa-fw fa-search" style="font-size:48px"></i> SEARCH</a>
-    <a href="registration.php"><i class="fa fa-fw fa-user" style="font-size:48px"></i> REGISTER</a>
-    <a href="contactus.php"><i class="fa fa-fw fa-envelope" style="font-size:48px"></i> CONTACT</a>
-      </div>
     <div class="topnav topbar" id="myTopnav">
       <a href="home.php"><b id="tp2"><img id="logo" src="somaiyalogo.png" alt="somaiya trust" height="50px" > SOMAIYA </b><b id="tp">BLOOD</b><b id="tp2">BANK</b></a>
-      <a href="login.php" class="topright navlinkh" id="nava">Login</a>
+      <?php
+      session_start();
+        if(!isset($_SESSION['login_user']))
+        {
+          // header("location:login.php");
+          echo '<a href="login.php" class="topright navlinkh" id="nava">Login</a>';
+        }
+        else
+          {
+            echo '<a href="logout.php" class="topright navlinkh" id="nava">Logout</a>';
+          }
+        ?>
+      <!-- <a href="login.php" class="topright navlinkh" id="nava">Login</a> -->
+    </div>
+    <!-- sidebar -->
+    <div class="sidebar">
+      <a href="home.php"><i class="fa fa-fw fa-home" style="font-size:48px"></i> HOME</a>
+      <a href="search.php"><i class="fa fa-fw fa-search" style="font-size:48px"></i> SEARCH</a>
+      <a href="registration.php"><i class="fa fa-fw fa-user" style="font-size:48px"></i> REGISTER</a>
+      <a href="contactus.php"><i class="fa fa-fw fa-envelope" style="font-size:48px"></i> CONTACT</a>
     </div>
 	<div class="container sear">
 		<h2>Search for </h2>
