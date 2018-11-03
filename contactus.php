@@ -79,7 +79,7 @@
             </P>
             <p>
               <LABEL class="lab">Phone Number</LABEL>
-              <INPUT TYPE="TEXT" name="MNO" PLACEHOLDER="Phone Number" REQUIRED>
+              <INPUT TYPE="number" name="MNO" PLACEHOLDER="Phone Number" REQUIRED>
             </p>
             <p>
               <textarea name="Message" rows="6" cols="40" placeholder="Enter your message in 10-15 words"></textarea>

@@ -51,11 +51,11 @@
           if ($conn->connect_error) {
               die("Connection failed: " . $conn->connect_error);
           }
-          $sql = "CREATE TABLE IF NOT EXISTS user(REGTYPE VARCHAR(20),FNAME VARCHAR(20),LNAME VARCHAR(20),EMAIL VARCHAR(20) PRIMARY KEY,PASSWORD VARCHAR(70),AGE INT,BLOODGROUP VARCHAR(20),SEX VARCHAR(20),MNO INT,ALNO INT,STATE VARCHAR(20),CITY VARCHAR(20),LMARK VARCHAR(20),COUNTRY VARCHAR(20))";
+          $sql = "CREATE TABLE IF NOT EXISTS user(REGTYPE VARCHAR(20),FNAME VARCHAR(20),LNAME VARCHAR(20),EMAIL VARCHAR(60) PRIMARY KEY,PASSWORD VARCHAR(70),AGE INT,BLOODGROUP VARCHAR(20),SEX VARCHAR(20),MNO INT,ALNO INT,STATE VARCHAR(36),CITY VARCHAR(36),LMARK VARCHAR(36),COUNTRY VARCHAR(36))";
           if ($conn->query($sql) === FALSE) {
               echo "Error: " . $sql . "<br>" . $conn->error;
           }
-          $sql2 = "CREATE TABLE IF NOT EXISTS contactus(NAME VARCHAR(20),EMAIL VARCHAR(20), MNO INT, MESSAGE VARCHAR(50))";
+          $sql2 = "CREATE TABLE IF NOT EXISTS contactus(NAME VARCHAR(20),EMAIL VARCHAR(60), MNO INT, MESSAGE VARCHAR(50))";
           if ($conn->query($sql2) === FALSE) {
               echo "Error: " . $sql . "<br>" . $conn->error;
           }
